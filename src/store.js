@@ -1,3 +1,4 @@
+import { uniqueNumGenerator } from "./utils";
 /**
  * Хранилище состояния приложения
  */
@@ -5,7 +6,6 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.id = this.state.list.length
   }
 
   /**
@@ -46,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: ++this.id, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.generateId(), title: 'Новая запись' }],
     });
   }
 
@@ -75,6 +75,18 @@ class Store {
         return item;
       }),
     });
+  }
+
+  /**
+   * Генерация уникального code
+   */
+  generateId(){
+    const existedCodes = this.state.list.map(item => item.code)
+    const uniqueCode = uniqueNumGenerator(0,1000)
+    if(existedCodes.includes(uniqueCode)) {
+      this.generateId()
+    }
+    return uniqueCode
   }
 }
 

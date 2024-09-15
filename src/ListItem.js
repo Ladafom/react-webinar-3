@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { store } from './index';
+import { plural } from './utils';
 
-function ListItem({item, store}) {
+function ListItem({item}) {
 
   const [selectedNum, setSelectedNum] = useState(0)
+  const forms = ['раз', 'раза'];
 
   function onSelect(code){
     store.selectItem(code)
@@ -18,11 +21,12 @@ function ListItem({item, store}) {
         onClick={() => onSelect(item.code)}
       >
         <div className="Item-code">{item.code}</div>
-        <div className="Item-title">{item.title}</div>
-        {
-          selectedNum !== 0 &&
-          <div className="Item-selected-num"> Выделяли {selectedNum} раз(а)</div>
-        }
+        <div className="Item-title">{item.title}
+          {
+            selectedNum !== 0 &&
+            ` | Выделяли ${selectedNum} ${plural(forms, selectedNum)}`
+          }
+        </div>
         <div className="Item-actions">
           <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
         </div>
