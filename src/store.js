@@ -104,6 +104,14 @@ class Store {
       }
   }
 
+  deleteCartItem(cartItem){
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== cartItem.code),
+    });
+  }
+
   getTotalCost() {
     return this.state.cart.reduce((acc, item) => {
       acc += item.price * item.amount

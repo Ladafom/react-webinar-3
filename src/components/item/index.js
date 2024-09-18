@@ -6,8 +6,8 @@ import './style.css';
 function Item(props) {
 
   const callbacks = {
-    onAdd: () => {
-      props.onAdd(props.item);
+    onClick: () => {
+      props.onControlsClick(props.item);
     },
   };
 
@@ -20,8 +20,14 @@ function Item(props) {
       <div className='Item-price'>
         {props.item.price} ₽
       </div>
+      {
+        props.controlsType === 'delete' &&
+        <div className='Item-amount'>
+        {props.item.amount} шт
+      </div>
+      }
       <div className="Item-actions">
-        <Controls onAdd={callbacks.onAdd} type={'add'}/>
+        <Controls onClick={callbacks.onClick} type={props.controlsType}/>
       </div>
     </div>
   );
@@ -33,7 +39,8 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
-  onAdd: PropTypes.func,
+  onControlsClick: PropTypes.func,
+  controlsType: PropTypes.string
 };
 
 export default React.memo(Item);

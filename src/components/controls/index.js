@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Controls({ onAdd, type }) {
+function Controls({ onClick, type }) {
+
   return (
     <div className="Controls">
-      {type === 'cart' && <button>Перейти</button>}
-      {type === 'add' && <button onClick={onAdd}>Добавить</button>}
-      {type === 'delete' && <button>Удалить</button>}
+      {type === 'openCart' && <button onClick={onClick}>Перейти</button>}
+      {type === 'closeCart' && <button onClick={onClick}>Закрыть</button>}
+      {type === 'add' && <button onClick={onClick}>Добавить</button>}
+      {type === 'delete' && <button onClick={onClick}>Удалить</button>}
     </div>
   );
 }

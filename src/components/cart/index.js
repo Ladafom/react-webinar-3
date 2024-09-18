@@ -4,7 +4,7 @@ import { plural } from '../../utils'
 import './style.css';
 import Controls from '../controls';
 
-function Cart({ cart, totalCost}) {
+function Cart({ cartLength, totalCost, onControlsClick}) {
 
   return (
     <div className="Cart">
@@ -12,8 +12,8 @@ function Cart({ cart, totalCost}) {
         В корзине:
         <strong>
           {
-            cart.length ?
-            ` ${cart.length} ${plural(cart.length, {
+            cartLength !== 0?
+            ` ${cartLength} ${plural(cartLength, {
                                                   one: 'товар',
                                                   few: 'товара',
                                                   many: 'товаров',
@@ -23,21 +23,15 @@ function Cart({ cart, totalCost}) {
           }
         </strong>
       </div>
-      <Controls type={'cart'}/>
+      <Controls type={'openCart'} onClick={onControlsClick}/>
     </div>
   );
 }
 
 Cart.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.number,
-      title: PropTypes.string,
-      price: PropTypes.number,
-      amount: PropTypes.number,
-    }),
-  ).isRequired,
+  cartLength: PropTypes.number,
   totalCost: PropTypes.number,
+  onControlsClick: PropTypes.func
 };
 
 export default React.memo(Cart);

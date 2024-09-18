@@ -18,8 +18,8 @@
   padding: 20px 10px;
 }
 
-.Item-price {
-  width: 15%;
+.Item-price, .Item-amount {
+  width: 14%;
   text-align: end;
-  padding: 20px 14px 20px;
+  padding: 20px 0px 20px;
 }
