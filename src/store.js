@@ -83,6 +83,35 @@ class Store {
       }),
     });
   }
+
+  addCartItem(cartItem){
+    if (this.state.cart.some(item => item.code === cartItem.code)){
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(item => {
+          if(item.code === cartItem.code){
+            return {...item, amount: item.amount + 1}
+          }
+          return item
+        })
+      })
+
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {...cartItem, amount:1}]
+        })
+      }
+  }
+
+  getTotalCost() {
+    return this.state.cart.reduce((acc, item) => {
+      acc += item.price * item.amount
+      return acc
+    }, 0)
+  }
+
 }
+
 
 export default Store;
