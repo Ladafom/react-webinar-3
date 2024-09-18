@@ -6,6 +6,11 @@ import './style.css'
 
 function CartModal({cart, onControlsClick, totalCost, onModalClose, isModalOpen}) {
 
+  const defaultProps = {
+    onControlsClick: () => {},
+    onModalClose: ()=>{}
+  }
+
   function onWrapperClick(e){
     if(e.target.classList.contains('CartModal-wrapper')){
       onModalClose()
@@ -24,14 +29,14 @@ function CartModal({cart, onControlsClick, totalCost, onModalClose, isModalOpen}
                 <h1>Корзина</h1>
                 <Controls
                   type='closeCart'
-                  onClick={onModalClose}
+                  onClick={onModalClose ? onModalClose : defaultProps.onModalClose}
                 />
               </div>
 
               <div className="CardModal-items">
                 <List
                   list={cart}
-                  onControlsClick={onControlsClick}
+                  onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
                   controlsType='delete'
                 />
               </div>

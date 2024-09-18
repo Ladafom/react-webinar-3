@@ -6,6 +6,10 @@ import Controls from '../controls';
 
 function Cart({ cartLength, totalCost, onControlsClick}) {
 
+  const defaultProps = {
+    onControlsClick: () => {},
+  }
+
   return (
     <div className="Cart">
       <div>
@@ -23,7 +27,7 @@ function Cart({ cartLength, totalCost, onControlsClick}) {
           }
         </strong>
       </div>
-      <Controls type={'openCart'} onClick={onControlsClick}/>
+      <Controls type={'openCart'} onClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}/>
     </div>
   );
 }
