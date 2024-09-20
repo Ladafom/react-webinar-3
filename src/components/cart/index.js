@@ -21,7 +21,7 @@ function Cart({ cartLength, totalCost, onControlsClick}) {
                                                   one: 'товар',
                                                   few: 'товара',
                                                   many: 'товаров',
-            })} / ${totalCost} ₽`
+            })} / ${totalCost.toLocaleString("ru-RU")} ₽`
             :
             ' пусто'
           }

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Item from '../item';
+import CartItem from '../cart-item';
 import './style.css';
 
-function List({ list, onControlsClick, controlsType, cartLength }) {
+function List({ list, onControlsClick, cartLength, isCart}) {
 
   const defaultProps = {
     onControlsClick: () => {},
@@ -13,12 +14,20 @@ function List({ list, onControlsClick, controlsType, cartLength }) {
     <div className="List">
       {list.map(item => (
         <div key={item.code} className="List-item">
-          <Item
-            item={item}
-            onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
-            controlsType={controlsType}
-            cartLength={cartLength}
-          />
+          {
+            isCart ?
+            <CartItem
+              item={item}
+              onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
+              cartLength={cartLength}
+            />
+            :
+            <Item
+              item={item}
+              onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
+              cartLength={cartLength}
+            />
+          }
         </div>
       ))}
     </div>
@@ -33,7 +42,7 @@ List.propTypes = {
       price: PropTypes.number,
     }),
   ).isRequired,
-  controlsType: PropTypes.string,
+  isCart:PropTypes.bool,
   cartLength: PropTypes.number,
   onControlsClick: PropTypes.func,
 };

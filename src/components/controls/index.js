@@ -7,7 +7,7 @@ function Controls({ onClick, type }) {
   return (
     <div className="Controls">
       {type === 'openCart' && <button onClick={onClick}>Перейти</button>}
-      {type === 'closeCart' && <button onClick={onClick}>Закрыть</button>}
+      {type === 'closeModal' && <button onClick={onClick}>Закрыть</button>}
       {type === 'add' && <button onClick={onClick}>Добавить</button>}
       {type === 'delete' && <button onClick={onClick}>Удалить</button>}
     </div>

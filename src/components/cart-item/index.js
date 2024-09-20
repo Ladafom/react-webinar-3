@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Controls from '../controls/index'
 import './style.css';
+import '../item/style.css'
 
-function Item(props) {
+function CartItem(props) {
 
   const callbacks = {
     onClick: () => {
@@ -17,17 +18,22 @@ function Item(props) {
       <div className="Item-title">
         {props.item.title}
       </div>
-      <div className='Item-price'>
-        {props.item.price.toLocaleString("ru-RU")} ₽
+      <div className='CardItem-info'>
+        <div>
+          {props.item.price.toLocaleString("ru-RU")} ₽
+        </div>
+          <div>
+          {props.item.amount} шт
+        </div>
       </div>
       <div className="Item-actions">
-        <Controls onClick={callbacks.onClick} type='add'/>
+        <Controls onClick={callbacks.onClick} type='delete'/>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -37,4 +43,4 @@ Item.propTypes = {
   controlsType: PropTypes.string
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

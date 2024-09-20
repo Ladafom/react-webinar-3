@@ -84,12 +84,13 @@ class Store {
     });
   }
 
-  addCartItem(cartItem){
-    if (this.state.cart.some(item => item.code === cartItem.code)){
+  addCartItem(code){
+
+    if (this.state.cart.some(item => item.code === code)){
       this.setState({
         ...this.state,
         cart: this.state.cart.map(item => {
-          if(item.code === cartItem.code){
+          if(item.code === code){
             return {...item, amount: item.amount + 1}
           }
           return item
@@ -97,6 +98,8 @@ class Store {
       })
 
     } else {
+
+      const cartItem = this.state.list.find(item => item.code === code);
       this.setState({
         ...this.state,
         cart: [...this.state.cart, {...cartItem, amount:1}]
@@ -104,11 +107,11 @@ class Store {
       }
   }
 
-  deleteCartItem(cartItem){
+  deleteCartItem(code){
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(item => item.code !== cartItem.code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 

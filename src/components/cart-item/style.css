@@ -1,0 +1,7 @@
+.CardItem-info {
+  display: flex;
+  width: 100%;
+  gap: 62px;
+  justify-content: flex-end;
+  align-items: center;
+}

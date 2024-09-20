@@ -3,7 +3,8 @@ import List from './components/list';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Cart from './components/cart'
-import CartModal from './components/cartModal';
+import CartModal from './components/cart-modal';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -17,12 +18,12 @@ function App({ store }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const callbacks = {
-    onDeleteCartItem: useCallback((cartItem) => {
-      store.deleteCartItem(cartItem);
+    onDeleteCartItem: useCallback((code) => {
+      store.deleteCartItem(code);
     },[store]),
 
-    onAddCartItem: useCallback((cartItem) => {
-      store.addCartItem(cartItem);
+    onAddCartItem: useCallback((code) => {
+      store.addCartItem(code);
     }, [store]),
 
     onModalOpen: useCallback(()=>{
@@ -45,15 +46,19 @@ function App({ store }) {
       <List
         list={list}
         onControlsClick={callbacks.onAddCartItem}
-        controlsType='add'
+        isCart={false}
       />
-      <CartModal
-        cart={cart}
-        totalCost={totalCost}
-        onControlsClick={callbacks.onDeleteCartItem}
+      <Modal
+        modalHeader={'Корзина'}
         onModalClose={callbacks.onModalClose}
         isModalOpen={isModalOpen}
-      />
+        >
+        <CartModal
+          cart={cart}
+          totalCost={totalCost}
+          onControlsClick={callbacks.onDeleteCartItem}
+        />
+      </Modal>
     </PageLayout>
   );
 }
