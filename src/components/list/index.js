@@ -4,30 +4,27 @@ import Item from '../item';
 import CartItem from '../cart-item';
 import './style.css';
 
-function List({ list, onControlsClick, cartLength, isCart}) {
+function List({ list, onControlsClick, component}) {
+
+  const components = {
+    item: Item,
+    cartItem: CartItem
+  }
+  const ListItem = components[component]
 
   const defaultProps = {
     onControlsClick: () => {},
   }
 
+
   return (
     <div className="List">
       {list.map(item => (
         <div key={item.code} className="List-item">
-          {
-            isCart ?
-            <CartItem
-              item={item}
-              onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
-              cartLength={cartLength}
-            />
-            :
-            <Item
-              item={item}
-              onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
-              cartLength={cartLength}
-            />
-          }
+          <ListItem
+            item={item}
+            onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
+          />
         </div>
       ))}
     </div>
@@ -42,9 +39,8 @@ List.propTypes = {
       price: PropTypes.number,
     }),
   ).isRequired,
-  isCart:PropTypes.bool,
-  cartLength: PropTypes.number,
   onControlsClick: PropTypes.func,
+  component: PropTypes.string,
 };
 
 export default React.memo(List);

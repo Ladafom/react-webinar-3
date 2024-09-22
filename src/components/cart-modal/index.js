@@ -10,8 +10,8 @@ function CartModal({cart, onControlsClick, totalCost,}) {
       <div className="CardModal-items">
         <List
           list={cart}
-          onControlsClick={onControlsClick ? onControlsClick : defaultProps.onControlsClick}
-          isCart={true}
+          onControlsClick={onControlsClick}
+          component={'cartItem'}
         />
       </div>
 

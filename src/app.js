@@ -5,6 +5,7 @@ import PageLayout from './components/page-layout';
 import Cart from './components/cart'
 import CartModal from './components/cart-modal';
 import Modal from './components/modal';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -35,6 +36,7 @@ function App({ store }) {
     }, [isModalOpen])
   };
 
+
   return (
     <PageLayout>
       <Head title="Магазин" />
@@ -46,7 +48,7 @@ function App({ store }) {
       <List
         list={list}
         onControlsClick={callbacks.onAddCartItem}
-        isCart={false}
+        component={'item'}
       />
       <Modal
         modalHeader={'Корзина'}
