@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import './style.css'
 import { usePagination } from '../../hooks/use-pagination';
+import useSelector from '../../store/use-selector';
 
-function Pagination({onPageChange, totalPage}) {
+function Pagination({onPageChange}) {
 
-  if(totalPage){
+    const select = useSelector(state => ({
+      currentPage: state.pagination.currentPage,
+      totalPage: state.catalog.totalPage,
+    }));
 
-    const [currentPage, setCurrentPage] = useState(1)
-
-    const paginationRange = usePagination(totalPage, currentPage);
-
-    function handlePageChange (pageNumber) {
-      setCurrentPage(pageNumber)
-      onPageChange(pageNumber)
-    }
+    const paginationRange = usePagination(select.totalPage, select.currentPage)
 
     return (
       <div className='Pagination'>
@@ -31,8 +28,8 @@ function Pagination({onPageChange, totalPage}) {
           return (
             <button
               key={index}
-              onClick={() => handlePageChange(pageNumber)}
-              className={ 'Pagination-button' + (pageNumber === currentPage ? ' Pagination-button__active' : '')}
+              onClick={() => onPageChange(pageNumber)}
+              className={ 'Pagination-button' + (pageNumber === select.currentPage ? ' Pagination-button__active' : '')}
             >
               {pageNumber}
             </button>
@@ -41,8 +38,6 @@ function Pagination({onPageChange, totalPage}) {
 
       </div>
     );
-  }
-
 }
 
 export default React.memo(Pagination);

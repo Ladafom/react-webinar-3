@@ -15,8 +15,15 @@
 }
 
 .Item-title {
-  width: 100%;
+  margin-right: auto;
   padding: 20px 10px;
+  color: #000;
+  text-decoration: none;
+}
+.Item-title:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
 }
 
 .Item-actions {
