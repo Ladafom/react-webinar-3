@@ -1,8 +1,14 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import useSelector from '../../store/use-selector';
 import './style.css';
 
-function Head({ title }) {
+function Head({ title, onLangChange }) {
+
+  const select = useSelector(state => ({
+    lang: state.language.lang,
+  }));
+
   return (
     <div className="Head">
       {
@@ -11,6 +17,20 @@ function Head({ title }) {
         :
         <h1>Loading...</h1>
       }
+      <div className='Head-lang'>
+        <button
+          className={select.lang === 'en' ? 'Head-lang__active' : ''}
+          onClick={()=>onLangChange('en')}
+        >
+          En
+        </button>
+        <button
+          className={select.lang === 'ru' ? 'Head-lang__active' : ''}
+          onClick={()=>onLangChange('ru')}
+        >
+          Ru
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,26 +1,36 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { numberFormat, plural } from '../../utils';
 import { Link } from 'react-router-dom';
+import useStore from '../../store/use-store';
+import useSelector from '../../store/use-selector';
 import './style.css';
 
 function BasketTool({ sum, amount, onOpen }) {
+
+  const store = useStore();
+  const translator = store.actions.language
+
+  const select = useSelector(state => ({
+    lang: state.language.lang,
+  }));
+
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <Link to={'/'} className={cn('link')}>Главная</Link>
-      <span className={cn('label')}>В корзине:</span>
+      <Link to={'/'} className={cn('link')}> {translator.translate('linkHome')} </Link>
+      <span className={cn('label')}>{translator.translate('inCart')}:</span>
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, {
-              one: 'товар',
-              few: 'товара',
-              many: 'товаров',
+              one: translator.translate('oneItem'),
+              few: translator.translate('fewItems'),
+              many: translator.translate('manyItems'),
             })} / ${numberFormat(sum)} ₽`
-          : `пусто`}
+          : translator.translate('cartEmpty')}
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{translator.translate('buttonToCart')}</button>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import useSelector from '../../store/use-selector';
+import useStore from '../../store/use-store';
 import './style.css'
 
 function ProductInfo({product, onAdd}) {
@@ -5,6 +7,12 @@ function ProductInfo({product, onAdd}) {
   const callbacks = {
     onAdd: () => onAdd(product._id),
   };
+
+  const store = useStore();
+  const translator = store.actions.language
+  const select = useSelector(state => ({
+    lang: state.language.lang,
+  }));
 
   return (
     <div className="ProductInfo">
@@ -16,18 +24,18 @@ function ProductInfo({product, onAdd}) {
             { product.description }
           </p>
           <p>
-            Страна производитель: <strong>{product.madeIn?.title}</strong>
+            {translator.translate('productManufacture')}: <strong>{product.madeIn?.title}</strong>
           </p>
           <p>
-            Категория: <strong>{product.category?.title}</strong>
+          {translator.translate('productCategory')}: <strong>{product.category?.title}</strong>
           </p>
           <p>
-            Год выпуска: <strong>{product.edition}</strong>
+          {translator.translate('productRelease')}: <strong>{product.edition}</strong>
           </p>
           <h2>
-            Цена: {product.price}
+          {translator.translate('productPrice')}: {product.price}
           </h2>
-          <button onClick={callbacks.onAdd}>Добавить</button>
+          <button onClick={callbacks.onAdd}>{translator.translate('buttonAdd')}</button>
         </>
         :
         <h2>

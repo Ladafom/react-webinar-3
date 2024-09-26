@@ -31,11 +31,13 @@ function Product() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
 
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+
+    hadleLangChange: useCallback(lang=> store.actions.language.setLanguage(lang), [store]),
   };
 
   return (
     <PageLayout>
-      <Head title={select.product.title} />
+      <Head title={select.product.title} onLangChange={callbacks.hadleLangChange}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <ProductInfo product={select.product} onAdd={callbacks.addToBasket}/>
     </PageLayout>
