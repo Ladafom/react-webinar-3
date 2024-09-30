@@ -40,6 +40,10 @@ class Store {
     return this.state;
   }
 
+  getAction() {
+    return this.actions
+  }
+
   /**
    * Установка состояния
    * @param newState {Object}

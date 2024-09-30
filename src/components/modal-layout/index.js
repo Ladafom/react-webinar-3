@@ -1,14 +1,10 @@
 import { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import useStore from '../../store/use-store';
 import './style.css';
 
 function ModalLayout(props) {
   const cn = bem('ModalLayout');
-
-  const store = useStore();
-  const translator = store.actions.language
 
   // Корректировка центра, если модалка больше окна браузера.
   const layout = useRef();
@@ -34,7 +30,7 @@ function ModalLayout(props) {
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
           <button className={cn('close')} onClick={props.onClose}>
-            {translator.translate('buttonClose')}
+            {props.contentButton}
           </button>
         </div>
         <div className={cn('content')}>{props.children}</div>

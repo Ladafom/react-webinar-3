@@ -15,6 +15,7 @@ class Product extends StoreModule {
       {
         ...this.getState(),
         product: json.result,
+        order: json.result.order
       },
       'Загружен конкретный товар из АПИ',
     );

@@ -10,6 +10,8 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      currentPage: 1,
+      skip: 0,
     };
   }
 
@@ -24,6 +26,17 @@ class Catalog extends StoreModule {
       },
       'Загружены товары из АПИ',
     );
+  }
+
+  setPage(currentPage){
+    this.setState(
+      {
+        ...this.getState(),
+        currentPage: currentPage,
+        skip: currentPage * 10 - 10,
+      },
+      'Изменена страница'
+    )
   }
 }
 
