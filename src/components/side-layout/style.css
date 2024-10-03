@@ -8,8 +8,13 @@
   align-items: center;
 }
 
+.SideLayout_direction_column {
+  flex-direction: column;
+}
+
 .SideLayout_side_start {
   justify-content: flex-start;
+  align-items: start;
 }
 
 .SideLayout_side_end {

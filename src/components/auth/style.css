@@ -1,0 +1,16 @@
+.Auth-input {
+  margin-bottom: 20px;
+  min-width: 203px;
+  height: 20px;
+}
+
+.Auth-error {
+  margin: 0 0 20px 0;
+  color: #FF0000;
+}
+
+.Auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

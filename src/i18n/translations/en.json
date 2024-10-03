@@ -14,5 +14,15 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "login.title": "Login",
+  "login.login": "Login",
+  "login.password": "Password",
+  "login.entrance": "Login",
+  "auth.entrance": "Login",
+  "auth.exit": "Logout",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email"
 }

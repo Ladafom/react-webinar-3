@@ -1,4 +1,5 @@
 import StoreModule from '../module';
+import { sortCategories } from '../../utils';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -14,9 +15,11 @@ class CatalogState extends StoreModule {
       params: {
         page: 1,
         limit: 10,
+        category:'all',
         sort: 'order',
         query: '',
       },
+      categories:[],
       count: 0,
       waiting: false,
     };
@@ -36,7 +39,9 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+    await this.getCatalog()
   }
 
   /**
@@ -59,7 +64,6 @@ class CatalogState extends StoreModule {
    */
   async setParams(newParams = {}, replaceHistory = false) {
     const params = { ...this.getState().params, ...newParams };
-
     // Установка новых параметров и признака загрузки
     this.setState(
       {
@@ -79,13 +83,20 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
-    const apiParams = {
+    let apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
     };
+
+    if(this.getState().params.category !== 'all'){
+      apiParams = {
+        ...apiParams,
+        'search[category]': params.category
+      }
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
@@ -97,6 +108,21 @@ class CatalogState extends StoreModule {
         waiting: false,
       },
       'Загружен список товаров из АПИ',
+    );
+  }
+
+  async getCatalog(){
+
+    const response = await fetch(`/api/v1/categories?fields=_id,name,title,parent(_id)&limit=*&sort=parent,parent._id`);
+    const json = await response.json();
+    const sortedCategories = sortCategories(json.result.items)
+
+    this.setState(
+      {
+        ...this.getState(),
+        categories: sortedCategories,
+      },
+      'Загружен список категорий',
     );
   }
 }
