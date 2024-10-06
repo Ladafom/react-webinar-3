@@ -1,41 +1,36 @@
 import { Link } from "react-router-dom";
 import SideLayout from "../side-layout";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import './style.css'
 
-function AuthButton({translator, onLogout}) {
+function AuthButton({translator, onLogout, userName, isAuth}) {
 
-  const userName = Cookies.get('userName')
-  const token = Cookies.get('token')
   const navigate = useNavigate()
 
   function onClick(){
     onLogout()
-    navigate('/')
+    navigate('/');
   }
 
-  if(!token){
+  if(!isAuth){
     return (
-      <SideLayout side={'end'} padding={'medium'}>
-        <button>
-          <Link to={'/login'} className="Auth">
-            {translator('auth.entrance')}
-          </Link>
+      <SideLayout side={'end'} padding={'mixed'} border={'bottom'}>
+        <button onClick={()=>navigate('/login')}>
+          {translator('auth.entrance')}
         </button>
       </SideLayout>
     );
   }
 
-  if(token){
+  if(isAuth){
     return (
-      <SideLayout side={'end'} padding={'medium'}>
+      <SideLayout side={'end'} padding={'mixed'} border={'bottom'}>
           <Link to={'/profile'}>
             {userName}
           </Link>
 
         <button onClick={onClick}>
-        {translator('auth.exit')}
+          {translator('auth.exit')}
         </button>
       </SideLayout>
     );

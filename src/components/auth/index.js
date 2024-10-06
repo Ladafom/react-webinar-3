@@ -1,6 +1,5 @@
 import { useState } from "react";
 import SideLayout from "../side-layout";
-import { useNavigate } from "react-router-dom";
 import './style.css'
 
 function Auth(props) {
@@ -9,7 +8,6 @@ function Auth(props) {
     login:'',
     password:''
   })
-  const navigate = useNavigate()
 
   function onFormChange(event){
     SetLoginForm(
@@ -29,7 +27,6 @@ function Auth(props) {
       }
     )
     props.onLogin(loginForm.login, loginForm.password)
-    navigate('/')
   }
 
   return (

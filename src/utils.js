@@ -48,7 +48,7 @@ export function sortCategories ( categoriesArr ) {
     arr
       .filter(item => ( item.parent?._id || null ) === parentId)
       .map(item => {
-        const prefix = '-'.repeat(prefixNum-1)
+        const prefix = '- '.repeat(prefixNum-1)
         sortedCategories.push({...item, title: `${prefix}${item.title}`})
         nesting(categoriesArr, item._id, prefixNum+1)
       })

@@ -19,7 +19,6 @@ class CatalogState extends StoreModule {
         sort: 'order',
         query: '',
       },
-      categories:[],
       count: 0,
       waiting: false,
     };
@@ -41,7 +40,6 @@ class CatalogState extends StoreModule {
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
-    await this.getCatalog()
   }
 
   /**
@@ -111,20 +109,6 @@ class CatalogState extends StoreModule {
     );
   }
 
-  async getCatalog(){
-
-    const response = await fetch(`/api/v1/categories?fields=_id,name,title,parent(_id)&limit=*&sort=parent,parent._id`);
-    const json = await response.json();
-    const sortedCategories = sortCategories(json.result.items)
-
-    this.setState(
-      {
-        ...this.getState(),
-        categories: sortedCategories,
-      },
-      'Загружен список категорий',
-    );
-  }
 }
 
 export default CatalogState;

@@ -1,30 +1,31 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { PrivateRoute, PublicRoute } from './access-routes';
 import useSelector from '../hooks/use-selector';
+import useStore from '../hooks/use-store';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile'
-import Cookies from 'js-cookie';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
-// const token = Cookies.get('token')
-const PrivateRoute = ({children }) => {
-  const token = Cookies.get('token')
-  return token ? children : <Navigate to="/login" />;
-};
-
-const PublicRoute = ({children }) => {
-  const token = Cookies.get('token')
-  return token ? <Navigate to="/profile" /> : children;
-};
 
 function App() {
+
+  const store = useStore();
+
   const activeModal = useSelector(state => state.modals.name);
+  const isAuth = useSelector(state=>state.session.isAuth)
+
+  useEffect(()=>{
+    if(isAuth){
+      store.actions.profile.getUser();
+    }
+  },[isAuth])
 
   return (
     <>

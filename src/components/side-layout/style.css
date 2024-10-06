@@ -33,6 +33,15 @@
   padding: 20px;
 }
 
+.SideLayout_padding_mixed {
+  padding: 10px 15px;
+}
+
 .SideLayout-item {
   margin: 0 5px;
+}
+
+.SideLayout_border_bottom{
+  border-bottom: 1px solid #DCDCDC;
+  margin: 0;
 }

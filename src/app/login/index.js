@@ -1,6 +1,5 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import PageLayout from "../../components/page-layout";
-import AuthButton from "../../components/auth-button";
 import Auth from "../../components/auth";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
@@ -15,11 +14,18 @@ function Login() {
   const store = useStore()
 
   const select = useSelector(state => ({
-    loginError: state.profile.error,
+    loginError: state.session.error,
+    isAuth: state.session.isAuth
   }))
 
+  useEffect(()=>{
+    if(select.loginError) {
+      return store.actions.session.resetLoginErrors()
+    }
+  },[])
+
   const callbacks = {
-    login: useCallback((login,password) => store.actions.profile.Login(login,password), [store]),
+    login: useCallback((login,password) => store.actions.session.login(login,password), [store]),
   };
 
   const { t } = useTranslate();
@@ -31,7 +37,7 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation/>
-      <Auth onLogin={callbacks.login} loginError={select.loginError} translator={t}/>
+      <Auth onLogin={callbacks.login} loginError={select.loginError} translator={t} isAuth={select.isAuth}/>
     </PageLayout>
   );
 }
