@@ -3,9 +3,8 @@ class SessionState extends StoreModule {
 
   initState() {
     return {
-      error:'',
+      error:[],
       isAuth:Boolean(localStorage.getItem('token')),
-      userName:localStorage.getItem('userName') || ''
     };
   }
 
@@ -28,20 +27,17 @@ class SessionState extends StoreModule {
     if(json.error){
       this.setState({
         ...this.getState(),
-        error:json.error.message,
+        error:json.error.data.issues,
         isAuth:false,
-        userName:''
       },
         'Ошибка входа',
       );
     } else {
       localStorage.setItem('token', json.result.token)
-      localStorage.setItem('userName', json.result.user.profile.name)
       this.setState({
         ...this.getState(),
-        error:'',
+        error:[],
         isAuth:true,
-        userName: localStorage.getItem('userName')
       },
         'Успешный вход',
       );
@@ -61,19 +57,17 @@ class SessionState extends StoreModule {
       this.setState({
         ...this.getState(),
         isAuth: false,
-        userName:''
       },
         'Успешный выход'
       )
 
       localStorage.removeItem("token");
-      localStorage.removeItem("userName");
   }
 
   resetLoginErrors(){
     this.setState({
       ...this.getState(),
-      error:'',
+      error:[],
     },
       'Сброс ошибок данных авторизации',
     )

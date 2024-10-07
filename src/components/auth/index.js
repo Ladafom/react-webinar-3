@@ -50,10 +50,16 @@ function Auth(props) {
           type="password"
           onChange={onFormChange}
         />
-        <p className="Auth-error">
-          {props.loginError}
-        </p>
-        <button
+          {
+            props.loginError.map(error =>
+            (
+              <p className="Auth-error">
+                {error.message}
+              </p>
+            )
+            )
+          }
+        <button className="Auth-button"
           onClick={onClick}
         >
           {props.translator('login.entrance')}

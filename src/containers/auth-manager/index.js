@@ -10,7 +10,7 @@ function AuthManager() {
 
   const select = useSelector(state => ({
     isAuth:state.session.isAuth,
-    userName: state.session.userName
+    userName: state.profile.user?.profile?.name
   }))
 
   const callbacks = {
