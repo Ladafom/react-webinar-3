@@ -1,0 +1,45 @@
+.CommentsItem {
+  padding: 0 30px ;
+}
+
+.CommentsItem-parent {
+  padding-bottom: 30px;
+}
+
+.CommentsItem_child {
+  padding: 0 30px 30px;
+}
+
+.CommentsItem-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.CommentsItem-userName {
+  font-size: 12px;
+}
+
+.CommentsItem-date {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+.CommentsItem-text {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.CommentsItem-btn {
+  background-color: transparent;
+  border: 0;
+  color: #0087E9;
+  font: 12px;
+  padding: 0;
+}
+
+.CommentsItem-btn:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
