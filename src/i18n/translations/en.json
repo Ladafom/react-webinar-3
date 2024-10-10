@@ -14,7 +14,12 @@
     "other": "articles"
   },
   "article.add": "Add",
+  "article.country": "Manufacturer country",
+  "article.category": "Category",
+  "article.release": "Release year",
+  "article.price": "Price",
   "filter.reset": "Reset",
+  "filter.search":"Search",
   "auth.title": "Sign In",
   "auth.login": "Login",
   "auth.password": "Password",
@@ -29,5 +34,13 @@
   "comments.notAuth": " to be able to comment",
   "comments.notAuth.reply": "to be able to answer.",
   "comments.reply": "Reply",
-  "comments.cancel": "Cancel"
+  "comments.cancel": "Cancel",
+  "sort.order":"By order",
+  "sort.naming":"By naming",
+  "sort.expensive":"Expensive first",
+  "sort.old":"Old",
+  "categories.all":"All",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone"
 }

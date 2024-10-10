@@ -22,6 +22,7 @@ function Article() {
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
 
+  const {t,lang} = useTranslate();
   const params = useParams();
 
   useInit(async() => {
@@ -30,7 +31,7 @@ function Article() {
       dispatch(articleActions.load(params.id)),
       dispatch(commentsActions.load(params.id)),
     ])
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelector(
     state => ({
@@ -40,7 +41,6 @@ function Article() {
     shallowequal,
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину

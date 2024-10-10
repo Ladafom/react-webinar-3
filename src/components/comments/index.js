@@ -14,7 +14,6 @@ function Comments({comments, t, count, addComment, isAuth, onReply, cancelReply}
         comments.map(item=>(
           <CommentsItem
             item={item}
-            className={'CommentsItem-parent'}
             addComment={addComment}
             onReply={onReply}
             cancelReply={cancelReply}

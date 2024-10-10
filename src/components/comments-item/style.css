@@ -1,13 +1,9 @@
 .CommentsItem {
-  padding: 0 30px ;
+  padding-left: 30px;
 }
 
-.CommentsItem-parent {
+.CommentsItem-nest{
   padding-bottom: 30px;
-}
-
-.CommentsItem_child {
-  padding: 0 30px 30px;
 }
 
 .CommentsItem-info {
