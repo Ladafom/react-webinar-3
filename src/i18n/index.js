@@ -8,7 +8,7 @@ class I18nService {
   constructor(services, config = {}) {
     this.services = services;
     this.config = config;
-    this.lang = this.config.i18n.baseLang;
+    this.lang = localStorage.getItem('lang') || this.config.i18n.baseLang;
     this.listeners = [];
   }
 
@@ -27,6 +27,7 @@ class I18nService {
 
   setLang (newLang) {
     this.lang = newLang
+    localStorage.setItem('lang', this.lang)
     this.services.api.setHeader(this.config.store.modules.session.langHeader, this.lang);
     for (const listener of this.listeners) listener(this.lang);
   }

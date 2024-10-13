@@ -1,4 +1,4 @@
-import { useCallback, memo } from 'react'
+import { useCallback, memo, useEffect } from 'react'
 import Comments from "../../components/comments";
 import NewComment from "../../components/new-comment";
 import useTranslate from "../../hooks/use-translate";
@@ -16,6 +16,7 @@ function ArticleComments(props) {
 
   const select = useSelector(state => ({
     isAuth: state.session.exists,
+    userId: state.session.user._id
   }));
   const selectRedux = useSelectorRedux(
     state => ({
@@ -36,7 +37,13 @@ function ArticleComments(props) {
     closeReply: useCallback((id) => dispatch(commentsActions.closeReply(id)))
   }
 
-  const { t } = useTranslate();
+  useEffect(()=>{
+    return (
+      callbacks.closeReply()
+    )
+  },[])
+
+  const { t, lang } = useTranslate();
 
   return (
     <div className='ArticleComments'>
@@ -48,6 +55,8 @@ function ArticleComments(props) {
         cancelReply={callbacks.closeReply}
         onReply={callbacks.openReply}
         t={t}
+        lang={lang}
+        currentUserId={select.userId}
       />
       {
         selectRedux.isReply &&
@@ -58,6 +67,7 @@ function ArticleComments(props) {
           parentId={props.parentId}
           type={'article'}
           cancelReply={callbacks.closeReply}
+          lang={lang}
         />
       }
     </div>

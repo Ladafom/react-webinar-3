@@ -28,6 +28,7 @@
   "session.signOut": "Sign Out",
   "comments.title": "Comments",
   "comments.new": "New comment",
+  "comments.new.answer": "New answer",
   "comments.placeholder": "Text",
   "comments.send": "Send",
   "comments.login": "Login ",

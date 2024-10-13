@@ -2,13 +2,13 @@ import { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import './style.css'
 
-function NewComment({t, isAuth, addComment, parentId, type, cancelReply}) {
+function NewComment({t, isAuth, addComment, parentId, type, cancelReply, lang}) {
 
-  const [text, setText] = useState('')
+  const [text, setText] = useState(t('comments.placeholder'))
 
   function onSendComment(text, parentId,type){
-    if(text.length) {
-      setText('')
+    if(text.trim().length ) {
+      setText(t('comments.placeholder'))
       cancelReply(parentId)
       addComment(text, parentId, type )
     }
@@ -18,11 +18,17 @@ function NewComment({t, isAuth, addComment, parentId, type, cancelReply}) {
     return (
       <div className='NewComment'>
         <strong>
-          {t('comments.new')}
+          {
+            type === 'comment' &&
+            t('comments.new.answer')
+          }
+          {
+            type === 'article' &&
+            t('comments.new')
+          }
         </strong>
 
         <textarea className='NewComment-textarea'
-          placeholder={t('comments.placeholder')}
           onInput={(e)=>setText(e.target.value)}
           value={text}
         >
@@ -49,8 +55,8 @@ function NewComment({t, isAuth, addComment, parentId, type, cancelReply}) {
 
   if(!isAuth){
     return (
-      <div className='NewComment-notAuth' >
-        <Link to='/login'>
+      <div className={lang === 'en' ? 'NewComment-notAuth NewComment_gap':'NewComment-notAuth'} >
+        <Link to='/login' state={{ back: location.pathname }}>
           {t('comments.login')}
         </Link>
         <p>

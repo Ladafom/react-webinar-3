@@ -1,10 +1,13 @@
-import { useState, memo } from 'react'
+import { useState, memo} from 'react'
 import NewComment from '../new-comment'
 import './style.css'
 
-function CommentsItem({item, t, isAuth, addComment, onReply, cancelReply}) {
+function CommentsItem({item, t, isAuth, addComment, onReply, cancelReply, lang, currentNest, currentUserId}) {
 
   const dateString = new Date(item.dateCreate)
+  const isCurrentUser = currentUserId === item.author._id
+
+  const maxNesting = 5
 
   const dateOptions = {
     year: 'numeric',
@@ -14,14 +17,21 @@ function CommentsItem({item, t, isAuth, addComment, onReply, cancelReply}) {
     minute:'numeric'
   }
 
+  const scrollTo = (ref) => {
+    if(ref){
+      ref.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }
+
   return (
     <div
       key={item._id}
-      className='CommentsItem'
+      className={currentNest <= maxNesting && currentNest !==0? 'CommentsItem' : ''}
     >
       <div className='CommentsItem-nest'>
         <div className='CommentsItem-info'>
-          <strong className='CommentsItem-userName'>
+          <strong className={`CommentsItem-userName ${isCurrentUser ? 'CommentsItem-userName_auth' : ''}`}
+          >
             {item.author?.profile?.name}
           </strong>
           <p className='CommentsItem-date'>
@@ -37,23 +47,31 @@ function CommentsItem({item, t, isAuth, addComment, onReply, cancelReply}) {
         >
           {t('comments.reply')}
         </button>
-        {
-          item.isReply &&
-          <NewComment t={t} isAuth={isAuth} addComment={addComment} parentId={item._id} type={'comment'} cancelReply={cancelReply}/>
-        }
       </div>
 
       {
-        item.children.map(i=>(
-          <CommentsItem
-            item={i}
-            key={i._id}
-            t={t} isAuth={isAuth}
-            addComment={addComment}
-            onReply={onReply}
-            cancelReply={cancelReply}
-          />
-        ))
+        item.children.map(i=>{
+          ++currentNest
+          return(
+            <CommentsItem
+              item={i}
+              key={i._id}
+              t={t} isAuth={isAuth}
+              addComment={addComment}
+              onReply={onReply}
+              cancelReply={cancelReply}
+              lang={lang}
+              currentNest={currentNest}
+              currentUserId={currentUserId}
+            />
+          )
+        })
+      }
+      {
+        item.isReply &&
+        <div ref={scrollTo}>
+          <NewComment t={t} isAuth={isAuth} addComment={addComment} parentId={item._id} type={'comment'} cancelReply={cancelReply} lang={lang}/>
+        </div>
       }
 
     </div>

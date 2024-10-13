@@ -30,6 +30,7 @@
   "session.signOut": "Выход",
   "comments.title": "Комментарии",
   "comments.new": "Новый комментарий",
+  "comments.new.answer": "Новый ответ",
   "comments.placeholder": "Текст",
   "comments.send": "Отправить",
   "comments.login": "Войдите",
