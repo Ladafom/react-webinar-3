@@ -4,7 +4,7 @@ import './style.css'
 
 function NewComment({t, isAuth, addComment, parentId, type, cancelReply, lang}) {
 
-  const [text, setText] = useState(t('comments.placeholder'))
+    const [text, setText] = useState('')
 
   function onSendComment(text, parentId,type){
     if(text.trim().length ) {
@@ -16,7 +16,7 @@ function NewComment({t, isAuth, addComment, parentId, type, cancelReply, lang}) 
 
   if(isAuth) {
     return (
-      <div className='NewComment'>
+      <div className={`NewComment ${type === 'article'? '' : 'NewComment_padding'}`}>
         <strong>
           {
             type === 'comment' &&
@@ -55,7 +55,7 @@ function NewComment({t, isAuth, addComment, parentId, type, cancelReply, lang}) 
 
   if(!isAuth){
     return (
-      <div className={lang === 'en' ? 'NewComment-notAuth NewComment_gap':'NewComment-notAuth'} >
+      <div className={ `NewComment-notAuth ${lang === 'en' ? 'NewComment_gap':''} ${type === 'article'? '' : 'NewComment_padding'}`} >
         <Link to='/login' state={{ back: location.pathname }}>
           {t('comments.login')}
         </Link>

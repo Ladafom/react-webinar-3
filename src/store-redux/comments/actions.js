@@ -10,12 +10,23 @@ export default {
                   parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`
         })
 
-        res.data.result.items = res.data.result.items.map(item=>(
-            item = {
-              ...item,
-              isReply: false
-            }
-          )
+        res.data.result.items = res.data.result.items.map(item=>{
+          if(item._id === localStorage.getItem('commId')){
+            return (
+              item = {
+                ...item,
+                isReply: true
+              }
+            )
+          } else {
+            return (
+              item = {
+                ...item,
+                isReply: false
+              }
+            )
+          }
+          }
         )
 
         dispatch({type:'comments/load-success', payload: {data: res.data.result}})
@@ -52,6 +63,7 @@ export default {
           ...resAuthor.data.result
         }
 
+        localStorage.removeItem('commId')
         dispatch({
           type:'comments/add-success',
           payload: {
@@ -89,6 +101,7 @@ export default {
         }
       })
 
+      localStorage.setItem('commId', id)
       dispatch({type: 'comments/open-reply', payload: { data: data}})
     }
 
@@ -111,9 +124,14 @@ export default {
         }
       })
 
+      localStorage.removeItem('commId')
       dispatch({type: 'comments/close-reply', payload: { data: data}})
     }
 
+  },
+
+  removeCommId: () => {
+    localStorage.removeItem('commId')
   }
 
 };

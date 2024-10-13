@@ -7,7 +7,7 @@ function CommentsItem({item, t, isAuth, addComment, onReply, cancelReply, lang, 
   const dateString = new Date(item.dateCreate)
   const isCurrentUser = currentUserId === item.author._id
 
-  const maxNesting = 5
+  const maxNesting = 7
 
   const dateOptions = {
     year: 'numeric',

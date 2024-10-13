@@ -37,12 +37,6 @@ function ArticleComments(props) {
     closeReply: useCallback((id) => dispatch(commentsActions.closeReply(id)))
   }
 
-  useEffect(()=>{
-    return (
-      callbacks.closeReply()
-    )
-  },[])
-
   const { t, lang } = useTranslate();
 
   return (
